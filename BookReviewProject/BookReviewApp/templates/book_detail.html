@@ -1,0 +1,28 @@
+<!-- reviews/templates/reviews/book_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.title }} Details</title>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Genre:</strong> {{ book.genre }}</p>
+    <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+    <p><strong>Description:</strong> {{ book.description }}</p>
+
+    <h2>Reviews</h2>
+    <a href="{% url 'add_review' book.pk %}">Add a Review</a>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>Rating:</strong> {{ review.rating }}<br>
+                <p>{{ review.review_text }}</p>
+                <small>Reviewed on {{ review.date_reviewed }}</small>
+            </li>
+        {% empty %}
+            <li>No reviews yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
