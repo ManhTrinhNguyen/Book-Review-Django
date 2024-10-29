@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Review for {{ book.title }}</title>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %}</title>
 </head>
 <body>
-    <h1>Review for {{ book.title }}</h1>
+    <h1>{% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %} for "{{ book.title }}"</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit Review</button>
+        <button type="submit">{% if form.instance.pk %}Update{% else %}Submit{% endif %} Review</button>
     </form>
+    <a href="{% url 'book_detail' book.pk %}">Back to Book Details</a>
 </body>
 </html>

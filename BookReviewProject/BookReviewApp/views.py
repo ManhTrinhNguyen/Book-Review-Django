@@ -41,3 +41,28 @@ def add_review_view(request, pk):
   
   return render(request, 'review_form.html', {'form': form, 'book': book})
 
+def edit_book_review(request, book_pk, review_id):
+   # Retrieve the specific Book and Review instances
+  book = get_object_or_404(Book, pk=book_pk)
+  reviews = get_object_or_404(Review, pk=review_id)
+  print(reviews.book)
+  form = ReviewForm()
+
+  if request.method == 'POST':
+    # Create a form with the submitted data, tied to the existing review instance
+    form = ReviewForm(request.POST, instance=reviews)
+    if form.is_valid():
+      form.save()
+      return redirect('book_detail', pk = book.pk)
+    
+  context = {
+    'form': form,
+    'book': book
+  }
+  return render(request, 'review_form.html', context)
+
+
+    
+
+
+  
